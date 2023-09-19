@@ -54,10 +54,16 @@ function handlerBox(){
   if(!(arrayBomb.includes(this._boxID))){
     this.classList.add("clicked");
     counterPoint++;
+    if(counterPoint === countBox - arrayBomb.length){
+      endGame("win");
+    }
   }else{
     this.classList.add("clicked-bomb");
-    endGame();
+    endGame("lose");
   }
+  console.log("counterPoint",counterPoint);
+  console.log("countBox",countBox);
+  console.log("arrayBomb.length",arrayBomb.length);
   return this;
 }
 
@@ -71,6 +77,7 @@ function addOptionSelect(){
 // FUNCTION RESET
 function reset(){
   containerBox.innerHTML="";
+  counterPoint = 0;
 };
 
 // FUNCTION RANDOM UNIQUE NUMBER
@@ -104,10 +111,14 @@ function randomizerUnique(min,max,dim){
 }
 
 // FUNCTION FINE GIOCO
-function endGame(){
+function endGame(event){
   viewBomb();
   console.log("Hai totalizzato: " + counterPoint + " punti")
-  console.log("Ti è esplosa una bomba tra le mani!");
+  if(event=== "lose"){
+    console.log("PERSO! Ti è esplosa una bomba tra le mani!");
+  }else{
+    console.log("VINTO! Hai schivato tutte le bombe!");
+  }
 }
 
 // FUNCTION viewBomb
