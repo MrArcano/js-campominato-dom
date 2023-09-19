@@ -64,8 +64,8 @@ function handlerBox(){
     endGame("lose");
   }
   // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
-  // this.innerHTML = nearbyBomb();
-  nearbyBomb(this);
+  this.innerHTML = nearbyBomb(this);
+  // nearbyBomb(this);
   return this;
 }
 
@@ -144,26 +144,87 @@ function viewBomb(){
 
 function nearbyBomb(box){
   const dim = parseInt(dimBox.value);
+  let counterNearbyBomb = 0
   if(box._boxID === 1){
     // elemento in alto a SX
     console.log("-> elemento in alto a SX")
+    // --------------------------------------------
+    if(arrayBomb.includes(box._boxID + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim + 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
   }else
   if(box._boxID === dim){
     // elemento in alto a DX
     console.log("-> elemento in alto a DX")
+    // --------------------------------------------
+    if(arrayBomb.includes(box._boxID - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim - 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
   }else
   if(box._boxID === countBox - dim + 1){
     // elemento in basso a SX
     console.log("-> elemento in basso a SX")
+    // --------------------------------------------
+    if(arrayBomb.includes(box._boxID - dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID - dim + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
   }else
   if(box._boxID === countBox){
     // elemento in basso a DX
     console.log("-> elemento in basso a DX")
+    // --------------------------------------------
+    if(arrayBomb.includes(box._boxID - dim - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID - dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID - 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
   }else
-
   if(box._boxID > 1 && box._boxID < dim ){
     // first row
     console.log("-> first row")
+    // --------------------------------------------
+    if(arrayBomb.includes(box._boxID - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim -1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(box._boxID + dim + 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
   }else
   if(box._boxID > countBox - dim + 1 && box._boxID < countBox){
     // last row
@@ -175,7 +236,6 @@ function nearbyBomb(box){
         console.log("-> first col");
       }
     }
-
     // last col
     for(let i=dim*2 ; i<=countBox-dim ; i+=dim){
       if(box._boxID === i){
@@ -183,4 +243,6 @@ function nearbyBomb(box){
       }
     }
   }
+
+  return counterNearbyBomb;
 }
