@@ -19,13 +19,13 @@ function init(){
     // seleziono dimBox
     const countBox = dimBox.value ** 2;
     // --------------------------------------------------------------------
-    // genero casualmente la posizione delle bombe da min a max, ultimo numero è la quantità di bombe in % -----> 0.15 = 15%
+    // genero casualmente la posizione delle bombe da min a max, ultimo numero è la quantità di bombe in % -----> 0.16 = 16%
     const arrayBomb = randomizerUnique(1,countBox,countBox*0.16);
     // --------------------------------------------------------------------
     // 2. Add box
     for(let i=1; i<=countBox; i++){
       // richiamo la creazione di un box
-      const box = createBox(i,dimBox.value);
+      const box = createBox(i,dimBox.value,arrayBomb);
 
       // append del box, al containerBox
       containerBox.append(box);
@@ -33,23 +33,32 @@ function init(){
 };
 
 // FUNCTION CREA BOX
-function createBox(index,dimBox){
+function createBox(index,dimBox,arrayBomb){
   const newBox = document.createElement("div");
   newBox.className = "box";
   newBox.style.width = 100 / dimBox + "%";
   newBox._boxID = index;
-  newBox.addEventListener("click",handlerBox);
+  newBox.addEventListener("click",function(){
+    handlerBox(newBox,arrayBomb);
+  });
   return newBox;
 };
 
 // FUNCTION HANDLERBOX
-function handlerBox(){
+function handlerBox(box,arrayBomb){
   // rimuovo l'eventListener del click
-  this.removeEventListener("click",handlerBox);
+  // this.removeEventListener("click",handlerBox);
   // console.dir(this);
-  console.log(this._boxID);
-  // aggiungo la classe clicked per il cambio del bg
-  this.classList.add("clicked");
+  console.log("iao");
+  console.log(box._boxID);
+  // aggiungo la classe clicked o clicked-bomb per il cambio del bg
+  if(!(arrayBomb.includes(this._boxID))){
+    this.classList.add("clicked");
+    counterPoint++;
+  }else{
+    this.classList.add("clicked-bomb");
+    finegioco();
+  }
 }
 
 // FUNCTION ADD OPTION SELECT
