@@ -6,6 +6,8 @@ let arrayBomb = [];
 let countBox = 0;
 
 addOptionSelect();
+// reset();
+// init();
 
 btnGen.addEventListener("click",function(){
   reset();
@@ -61,9 +63,6 @@ function handlerBox(){
     this.classList.add("clicked-bomb");
     endGame("lose");
   }
-  console.log("counterPoint",counterPoint);
-  console.log("countBox",countBox);
-  console.log("arrayBomb.length",arrayBomb.length);
   return this;
 }
 
@@ -112,21 +111,30 @@ function randomizerUnique(min,max,dim){
 
 // FUNCTION FINE GIOCO
 function endGame(event){
+  let text = "";
   viewBomb();
-  console.log("Hai totalizzato: " + counterPoint + " punti")
   if(event=== "lose"){
-    console.log("PERSO! Ti è esplosa una bomba tra le mani!");
+    text = "PERSO! Ti è esplosa una bomba tra le mani!";
   }else{
-    console.log("VINTO! Hai schivato tutte le bombe!");
+    text = "VINTO! Hai schivato tutte le bombe!";
   }
+  containerBox.innerHTML += `
+  <div class="hover">
+    <p class="fs-3 fw-bold text-white">Hai totalizzato: ${counterPoint} punti</p>
+    <p class="fs-2 fw-bold text-white">${text}</p>
+  </div>
+  `;
 }
 
 // FUNCTION viewBomb
 function viewBomb(){
   const allBox = document.getElementsByClassName("box");
   for( i = 0 ; i < allBox.length; i++){
+    // controllo tutti gli elementi box, se sono bombe le mostro
     if(arrayBomb.includes(allBox[i]._boxID)){
       allBox[i].classList.add("clicked-bomb");
     }
+    // su tutti i box rimuovo l' EventListener click
+    allBox[i].removeEventListener("click",handlerBox);
   }
 }
