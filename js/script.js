@@ -64,3 +64,32 @@ function reset(){
   containerBox.innerHTML="";
 };
 
+// FUNCTION RANDOM UNIQUE NUMBER
+/**
+ * 
+ * @param {number} min 
+ * @param {number} max 
+ * @param {number} dim 
+ * @returns 
+ */
+// randomizer senza ripetizioni dim:quantità
+function randomizerUnique(min,max,dim){
+  const randArray = []
+  let numRnd;
+  let i = 0;
+  if(dim <= max - min + 1){
+    console.log("randomizer start");
+    do{
+      numRnd = Math.floor(Math.random()* (max - min + 1) + min);
+      if (!(randArray.includes(numRnd))){
+        randArray.push(numRnd);
+        i++;
+      }
+    }while(i<dim);
+    console.log(randArray);
+    console.log("randomizer stop");
+  }else{
+    console.log("Errore! la dimensione del vettore finale, deve essere inferiore alla quantità di numeri tra min e max");
+  }
+  return randArray;
+}
