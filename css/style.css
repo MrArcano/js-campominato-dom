@@ -1,0 +1,58 @@
+:root{
+  --h-header: 80px
+}
+
+body{
+  background-color: #5988e7;
+}
+
+.main-wrapper{
+  height: calc((100vh - var(--h-header)));
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header{
+  height: var(--h-header);
+  background-color: white;
+}
+
+/* CONTAINER BOX */
+.container-csm{
+  height: 90%;
+  aspect-ratio: 1/1;
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOX */
+.box{
+  /* width: calc(100% / 10); */
+  aspect-ratio: 1/1;
+  background-color: #293b64;
+  border: 2px solid white;
+  color: white;
+
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: crosshair;
+}
+
+/* CLICKED */
+
+.box.clicked{
+  background-color: #296461;
+}
+
+.box.clicked-clicked{
+  background-color: brown;
+}
