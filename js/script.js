@@ -46,7 +46,7 @@ function createBox(index){
   return newBox;
 };
 
-// FUNCTION HANDLERBOX
+// FUNCTION HANDLERBOX EVENT LISTENER CLICK
 function handlerBox(){
   // rimuovo l'eventListener del click
   this.removeEventListener("click",handlerBox);
@@ -63,6 +63,9 @@ function handlerBox(){
     this.classList.add("clicked-bomb");
     endGame("lose");
   }
+  // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
+  // this.innerHTML = nearbyBomb();
+  nearbyBomb(this);
   return this;
 }
 
@@ -137,4 +140,43 @@ function viewBomb(){
     // su tutti i box rimuovo l' EventListener click
     allBox[i].removeEventListener("click",handlerBox);
   }
+}
+
+function nearbyBomb(box){
+  const dim = parseInt(dimBox.value);
+  if(box._boxID === 1){
+    // elemento in alto a SX
+    console.log("-> elemento in alto a SX")
+  }else
+  if(box._boxID === dim){
+    // elemento in alto a DX
+    console.log("-> elemento in alto a DX")
+  }else
+  if(box._boxID === countBox - dim + 1){
+    // elemento in basso a SX
+    console.log("-> elemento in basso a SX")
+  }else
+  if(box._boxID === countBox){
+    // elemento in basso a DX
+    console.log("-> elemento in basso a DX")
+  }else
+
+  if(box._boxID > 1 && box._boxID < dim ){
+    // first row
+    console.log("-> first row")
+  }else
+  if(box._boxID > countBox - dim + 1 && box._boxID < countBox){
+    // last row
+    console.log("-> last row")
+  }else
+  if(false){
+    // first col
+    console.log("-> first col")
+  }else
+  if(false){
+    // last col
+    console.log("-> last col")
+  }
+  
+
 }
