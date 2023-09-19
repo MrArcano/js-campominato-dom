@@ -168,15 +168,19 @@ function nearbyBomb(box){
   if(box._boxID > countBox - dim + 1 && box._boxID < countBox){
     // last row
     console.log("-> last row")
-  }else
-  if(false){
+  }else{
     // first col
-    console.log("-> first col")
-  }else
-  if(false){
-    // last col
-    console.log("-> last col")
-  }
-  
+    for(let i=dim+1 ; i<=(dim-1)**2 ; i+=dim){
+      if(box._boxID === i){
+        console.log("-> first col");
+      }
+    }
 
+    // last col
+    for(let i=dim*2 ; i<=countBox-dim ; i+=dim){
+      if(box._boxID === i){
+        console.log("-> last col");
+      }
+    }
+  }
 }
