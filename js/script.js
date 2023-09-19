@@ -24,7 +24,7 @@ function init(){
     countBox = dimBox.value ** 2;
     // --------------------------------------------------------------------
     // genero casualmente la posizione delle bombe da min a max, ultimo numero è la quantità di bombe in % -----> 0.16 = 16%
-    arrayBomb = randomizerUnique(1,countBox,countBox*0.16);
+    arrayBomb = randomizerUnique(1,countBox,countBox*0.15);
     // --------------------------------------------------------------------
     // 2. Add box
     for(let i=1; i<=countBox; i++){
@@ -52,6 +52,10 @@ function handlerBox(){
   this.removeEventListener("click",handlerBox);
   // console.dir(this);
   console.log("boxID: ",this._boxID);
+
+  // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
+  this.innerHTML = nearbyBomb(this);
+
   // aggiungo la classe clicked o clicked-bomb per il cambio del bg
   if(!(arrayBomb.includes(this._boxID))){
     this.classList.add("clicked");
@@ -63,9 +67,6 @@ function handlerBox(){
     this.classList.add("clicked-bomb");
     endGame("lose");
   }
-  // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
-  this.innerHTML = nearbyBomb(this);
-  // nearbyBomb(this);
   return this;
 }
 
@@ -298,41 +299,39 @@ function nearbyBomb(box){
     }
 
     // blocco centrale
-    let gap = dim - 2;
-    for(let i=dim+2 ; i< countBox - dim + 1; i++){
-      gap--;
-      if (gap === 0){
-        gap = dim - 2;
-        i+=2;
-      }
-      if(box._boxID === i){
-        console.log("-> center");
-        // --------------------------------------------
-        if(arrayBomb.includes(box._boxID - 1)){
-          counterNearbyBomb++;
+    for(let j = 1; j <= dim ; j++){
+      for(let i = (j * dim) + 2 ; i <= (j * dim) + dim - 1 ;i++ ){
+        if(box._boxID === i){
+          console.log(i);
+          console.log("-> center");
+          // --------------------------------------------
+          if(arrayBomb.includes(box._boxID - 1)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID + 1)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID - dim - 1)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID - dim)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID - dim + 1)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID + dim - 1)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID + dim)){
+            counterNearbyBomb++;
+          }
+          if(arrayBomb.includes(box._boxID + dim + 1)){
+            counterNearbyBomb++;
+          }
+          // --------------------------------------------
         }
-        if(arrayBomb.includes(box._boxID + 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim - 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim + 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim - 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim + 1)){
-          counterNearbyBomb++;
-        }
-        // --------------------------------------------
+
       }
     }
   }
