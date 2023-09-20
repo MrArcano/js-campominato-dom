@@ -24,8 +24,7 @@ function init(){
     countBox = dimBox.value ** 2;
     // --------------------------------------------------------------------
     // genero casualmente la posizione delle bombe da min a max, ultimo numero è la quantità di bombe in % -----> 0.16 = 16%
-    // arrayBomb = randomizerUnique(1,countBox,countBox*0.15);
-    arrayBomb = randomizerUnique(1,countBox,1);
+    arrayBomb = randomizerUnique(1,countBox,countBox*0.15);
     // --------------------------------------------------------------------
     // 2. Add box
     for(let i=1; i<=countBox; i++){
