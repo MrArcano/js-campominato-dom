@@ -53,11 +53,11 @@ function handlerBox(){
   // console.dir(this);
   console.log("boxID: ",this._boxID);
 
-  // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
-  this.innerHTML = nearbyBomb(this);
-
   // aggiungo la classe clicked o clicked-bomb per il cambio del bg
   if(!(arrayBomb.includes(this._boxID))){
+    // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
+    this.innerHTML = nearbyBomb(this);
+
     this.classList.add("clicked");
     counterPoint++;
     if(counterPoint === countBox - arrayBomb.length){
@@ -83,7 +83,7 @@ function reset(){
   counterPoint = 0;
 };
 
-// FUNCTION RANDOM UNIQUE NUMBER
+// FUNCTION RANDOM UNIQUE NUMBER ARRAY
 /**
  * 
  * @param {number} min 
