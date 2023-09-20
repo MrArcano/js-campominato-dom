@@ -24,7 +24,8 @@ function init(){
     countBox = dimBox.value ** 2;
     // --------------------------------------------------------------------
     // genero casualmente la posizione delle bombe da min a max, ultimo numero è la quantità di bombe in % -----> 0.16 = 16%
-    arrayBomb = randomizerUnique(1,countBox,countBox*0.15);
+    // arrayBomb = randomizerUnique(1,countBox,countBox*0.15);
+    arrayBomb = randomizerUnique(1,countBox,1);
     // --------------------------------------------------------------------
     // 2. Add box
     for(let i=1; i<=countBox; i++){
@@ -56,7 +57,7 @@ function handlerBox(){
   // aggiungo la classe clicked o clicked-bomb per il cambio del bg
   if(!(arrayBomb.includes(this._boxID))){
     // richiamo la funzione per sapere quante bombe ci sono nelle vicinanze
-    this.innerHTML = nearbyBomb(this);
+    this.innerHTML = nearbyBomb(this._boxID);
 
     this.classList.add("clicked");
     counterPoint++;
@@ -144,197 +145,185 @@ function viewBomb(){
 }
 
 // FUNCTION NEARBY BOMB
-function nearbyBomb(box){
+function nearbyBomb(id){
   const dim = parseInt(dimBox.value);
   let counterNearbyBomb = 0
-  if(box._boxID === 1){
+  if(id === 1){
     // elemento in alto a SX
     console.log("-> elemento in alto a SX")
     // --------------------------------------------
-    if(arrayBomb.includes(box._boxID + 1)){
+    if(arrayBomb.includes(id + 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim)){
+    if(arrayBomb.includes(id + dim)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim + 1)){
+    if(arrayBomb.includes(id + dim + 1)){
       counterNearbyBomb++;
     }
     // --------------------------------------------
   }else
-  if(box._boxID === dim){
+  if(id === dim){
     // elemento in alto a DX
     console.log("-> elemento in alto a DX")
     // --------------------------------------------
-    if(arrayBomb.includes(box._boxID - 1)){
+    if(arrayBomb.includes(id - 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim)){
+    if(arrayBomb.includes(id + dim)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim - 1)){
+    if(arrayBomb.includes(id + dim - 1)){
       counterNearbyBomb++;
     }
     // --------------------------------------------
   }else
-  if(box._boxID === countBox - dim + 1){
+  if(id === countBox - dim + 1){
     // elemento in basso a SX
     console.log("-> elemento in basso a SX")
     // --------------------------------------------
-    if(arrayBomb.includes(box._boxID - dim)){
+    if(arrayBomb.includes(id - dim)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID - dim + 1)){
+    if(arrayBomb.includes(id - dim + 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + 1)){
+    if(arrayBomb.includes(id + 1)){
       counterNearbyBomb++;
     }
     // --------------------------------------------
   }else
-  if(box._boxID === countBox){
+  if(id === countBox){
     // elemento in basso a DX
     console.log("-> elemento in basso a DX")
     // --------------------------------------------
-    if(arrayBomb.includes(box._boxID - dim - 1)){
+    if(arrayBomb.includes(id - dim - 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID - dim)){
+    if(arrayBomb.includes(id - dim)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID - 1)){
+    if(arrayBomb.includes(id - 1)){
       counterNearbyBomb++;
     }
     // --------------------------------------------
   }else
-  if(box._boxID > 1 && box._boxID < dim ){
+  if(id > 1 && id < dim ){
     // first row
     console.log("-> first row")
     // --------------------------------------------
-    if(arrayBomb.includes(box._boxID - 1)){
+    if(arrayBomb.includes(id - 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + 1)){
+    if(arrayBomb.includes(id + 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim - 1)){
+    if(arrayBomb.includes(id + dim - 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim)){
+    if(arrayBomb.includes(id + dim)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + dim + 1)){
+    if(arrayBomb.includes(id + dim + 1)){
       counterNearbyBomb++;
     }
     // --------------------------------------------
   }else
-  if(box._boxID > countBox - dim + 1 && box._boxID < countBox){
+  if(id > countBox - dim + 1 && id < countBox){
     // last row
     console.log("-> last row")
     // --------------------------------------------
-    if(arrayBomb.includes(box._boxID - 1)){
+    if(arrayBomb.includes(id - 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID + 1)){
+    if(arrayBomb.includes(id + 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID - dim - 1)){
+    if(arrayBomb.includes(id - dim - 1)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID - dim)){
+    if(arrayBomb.includes(id - dim)){
       counterNearbyBomb++;
     }
-    if(arrayBomb.includes(box._boxID - dim + 1)){
+    if(arrayBomb.includes(id - dim + 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
+  }else
+  if(((id - 1) % dim) == 0){
+    // es. dim = 10, il mio id è 11,21,31,..., sottraggo 1 e controllo il resto con il modulo
+    // first col
+    console.log("-> first col");
+    // --------------------------------------------
+    if(arrayBomb.includes(id + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim + 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
+  }else
+  if((id % dim) == 0){
+    // es. dim = 10, il mio id è 20,30,40,..., controllo il resto con il modulo
+    // last col
+    console.log("-> last col");
+    // --------------------------------------------
+    if(arrayBomb.includes(id - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim - 1)){
       counterNearbyBomb++;
     }
     // --------------------------------------------
   }else{
-
-    // first col
-    for(let i=dim+1 ; i<=(dim-1)**2 ; i+=dim){
-      if(box._boxID === i){
-        console.log("-> first col");
-        // --------------------------------------------
-        if(arrayBomb.includes(box._boxID + 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim + 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim + 1)){
-          counterNearbyBomb++;
-        }
-        // --------------------------------------------
-      }
-    }
-
-    // last col
-    for(let i=dim*2 ; i<=countBox-dim ; i+=dim){
-      if(box._boxID === i){
-        console.log("-> last col");
-        // --------------------------------------------
-        if(arrayBomb.includes(box._boxID - 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID - dim - 1)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim)){
-          counterNearbyBomb++;
-        }
-        if(arrayBomb.includes(box._boxID + dim - 1)){
-          counterNearbyBomb++;
-        }
-        // --------------------------------------------
-      }
-    }
-
+    // tutto quello che rimane è il centro
     // blocco centrale
-    for(let j = 1; j <= dim ; j++){
-      for(let i = (j * dim) + 2 ; i <= (j * dim) + dim - 1 ;i++ ){
-        if(box._boxID === i){
-          console.log(i);
-          console.log("-> center");
-          // --------------------------------------------
-          if(arrayBomb.includes(box._boxID - 1)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID + 1)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID - dim - 1)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID - dim)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID - dim + 1)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID + dim - 1)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID + dim)){
-            counterNearbyBomb++;
-          }
-          if(arrayBomb.includes(box._boxID + dim + 1)){
-            counterNearbyBomb++;
-          }
-          // --------------------------------------------
-        }
-
-      }
+    console.log("-> center");
+    // --------------------------------------------
+    if(arrayBomb.includes(id - 1)){
+      counterNearbyBomb++;
     }
+    if(arrayBomb.includes(id + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id - dim + 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim - 1)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim)){
+      counterNearbyBomb++;
+    }
+    if(arrayBomb.includes(id + dim + 1)){
+      counterNearbyBomb++;
+    }
+    // --------------------------------------------
   }
-
+  
   return counterNearbyBomb;
 }
